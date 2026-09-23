@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile Card</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 30px;
+            background-color: rgb(209, 225, 200);
+        }
+
+        input {
+            width: 220px;
+            padding: 8px;
+            margin: 8px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            color: rgb(88, 117, 173);
+            background-color: azure;
+        }
+
+        .card {
+            width: 250px;
+            border: 2px solid black;
+            margin: 25px auto;
+            padding: 15px;
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Student Profile</h2>
+
+    <input type="text" id="name" placeholder="Student Name"><br>
+
+    <input type="number" id="roll" placeholder="Roll Number"><br>
+
+    <input type="number" id="mark" placeholder="Mark"><br>
+
+    <button onclick="displayProfile()">Display Profile</button>
+
+    <div class="card" id="profileCard">
+
+        <h3>Student Profile Card</h3>
+
+        <p><b>Roll No :</b> <span id="showRoll"></span></p>
+
+        <p><b>Name :</b> <span id="showName"></span></p>
+
+        <p><b>Mark :</b> <span id="showMark"></span></p>
+
+        <p><b>Grade :</b> <span id="showGrade"></span></p>
+
+    </div>
+
+    <script>
+
+        function displayProfile() {
+
+            let name = document.getElementById("name").value.trim();
+            let roll = document.getElementById("roll").value;
+            let mark = document.getElementById("mark").value;
+
+            if (name == "") {
+                alert("Please enter Student Name");
+                return;
+            }
+            if (roll == "") {
+                alert("Please enter Roll Number");
+                return;
+            }
+            if (mark == "") {
+                alert("Please enter Marks");
+                return;
+            }
+            if (mark < 0 || mark > 100) {
+                alert("Marks should be between 0 and 100");
+                return;
+            }
+            mark = Number(mark);
+            let grade;
+            if (mark >= 90)
+                grade = "A";
+            else if (mark >= 80)
+                grade = "B";
+            else if (mark >= 70)
+                grade = "C";
+            else if (mark >= 60)
+                grade = "D";
+            else if (mark >= 50)
+                grade = "E";
+            else
+                grade = "F";
+
+            document.getElementById("showRoll").innerHTML = roll;
+            document.getElementById("showName").innerHTML = name;
+            document.getElementById("showMark").innerHTML = mark;
+            document.getElementById("showGrade").innerHTML = grade;
+
+            document.getElementById("profileCard").style.display = "block";
+        }
+
+    </script>
+
+</body>
+
+</html>

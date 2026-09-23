@@ -1,0 +1,40 @@
+.attendance {
+  width: 700px;
+  margin: 50px auto;
+  padding: 30px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.attendance h1 {
+  margin-bottom: 20px;
+}
+
+.attendance h3 {
+  display: inline-block;
+  margin: 10px 20px;
+}
+
+.student {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.attendance p {
+  margin: 0;
+}
+
+.attendance button {
+  padding: 8px 12px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

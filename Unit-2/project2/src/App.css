@@ -1,0 +1,22 @@
+.hobby-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  padding: 30px;
+}
+
+.hobby-card {
+  width: 280px;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #645f5f;
+  text-align: center;
+}
+
+.hobby-card img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
