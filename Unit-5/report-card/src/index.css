@@ -1,0 +1,57 @@
+:root {
+  font-family: 'Aptos', 'Segoe UI', sans-serif;
+  color: #243448;
+  background: #f3f5f8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #172b46;
+  --muted: #6c7887;
+  --line: #dfe5ec;
+  --paper: #fff;
+  --canvas: #f3f5f8;
+  --green: #19365d;
+  --green-dark: #102744;
+  --green-soft: #e9eef5;
+  --orange: #bd9144;
+  --serif: Georgia, 'Times New Roman', serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  color: #fff;
+  background: #19365d;
+}
+
+#root {
+  min-height: 100vh;
+}

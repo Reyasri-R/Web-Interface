@@ -49,7 +49,7 @@ function About() {
             </Link>
 
             <a
-              href="Reya resume.pdf"
+              href="resume reya.pdf"
               download
               className="btn btn-secondary"
             >

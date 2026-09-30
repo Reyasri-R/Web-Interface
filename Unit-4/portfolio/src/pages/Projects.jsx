@@ -5,7 +5,7 @@ const projects = [
     name: "Students Details",
 
     description:
-      "This project is a simple Student Details Management System developed in Java using fundamental Object-Oriented Programming (OOP) concepts. It allows users to input and display multiple student records through a console-based interface.",
+      "This project is a Student Details Management System developed in Java using core Object-Oriented Programming (OOP) concepts. It allows users to enter, store, and display student information through a simple console-based application.",
 
     technology: "Java OOPs Core",
 
@@ -13,28 +13,29 @@ const projects = [
       "https://github.com/reyasri/UNIT1-OOPS/blob/main/oops%20unit1%20mini%20project.java"
   },
 
+
   {
-    name: "Bank Management System",
+    name: "Village Milk Collection and Payment Register",
 
     description:
-      "This project is a Bank Management System built in Java using core Object-Oriented Programming (OOP) principles. It simulates basic banking operations such as account creation, deposits, withdrawals, and balance inquiries. The system is designed with a focus on clean architecture, modularity, and scalability using OOP concepts.",
+      "This project is a Village Milk Collection and Payment Register developed as a web-based application. It allows users to record and manage milk collection details such as member information, collection date, session, quantity, fat percentage, rate, and payment amount. The system also provides features for searching, filtering, and managing milk collection records.",
+
+    technology: "HTML, CSS, JavaScript",
+
+    github:
+      "https://github.com/reyasri/village-milk-collection-registration-website"
+  },
+
+  {
+    name: "Student Details Management System",
+
+    description:
+      "This project is a console-based Student Details Management System developed in Java. It uses a Student class and an array of Student objects to collect and display details of multiple students, including name, email, gender, department, year of study, age, and phone number. The project demonstrates basic Object-Oriented Programming concepts such as classes, objects, constructors, methods, and object arrays.",
 
     technology: "Java OOPs Core",
 
     github:
-      "https://github.com/saranyadaids29-lang/Bank-Management-System-in-java-using-oops"
-  },
-
-  {
-    name: "ATM Management System",
-
-    description:
-      "This project is a simple ATM Management System implemented in Java using core Object-Oriented Programming (OOP) principles. It simulates basic ATM operations such as balance checking, deposit, and withdrawal. The design focuses on Encapsulation, Abstraction, Inheritance, and Polymorphism to ensure clean and maintainable code.",
-
-    technology: "Java OOPs core",
-
-    github:
-      "https://github.com/saranyadaids29-lang/ATM-Management-System-in-java-using-oops"
+      "https://github.com/reyasri/UNIT1-OOPS/blob/main/oops%20unit1%20project1.java"
   },
 
   {
@@ -46,7 +47,7 @@ const projects = [
     technology: "Java OOPs core",
 
     github:
-      "https://github.com/saranyadaids29-lang/-Vehicle-Hierarchy-using-Oops-java-"
+      "https://github.com/reyasri/UNIT1-OOPS/blob/main/oops%20unit1%20project2.java"
   },
 
   {
@@ -297,7 +298,6 @@ function Projects() {
         ))}
 
       </div>
-
 
       <button
         type="button"

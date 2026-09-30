@@ -1,287 +1,195 @@
-import { useEffect, useState } from "react";
-import "./FormValidation.css";
-
+import { useState } from "react";
 function FormValidation() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-    });
-
-    const [errors, setErrors] = useState({});
-    const [touched, setTouched] = useState({});
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
+    const [name, setName] = useState("");
+    const [aadharName, setAadharName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [dob, setDob] = useState("");
+    const [gender, setGender] = useState("");
+    const [course, setCourse] = useState("");
+    const [pincode, setPincode] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [permanentAddress, setPermanentAddress] = useState("");
+    const [currentAddress, setCurrentAddress] = useState("");
+    const [sameAddress, setSameAddress] = useState(false);
+    const [file, setFile] = useState(null);
+    const [message, setMessage] = useState("");
+    const handleSameAddress = (e) => {
+        setSameAddress(e.target.checked);
+        if (e.target.checked) {
+            setCurrentAddress(permanentAddress);
+        }
+        else {
+            setCurrentAddress("");
+        }
     };
-
-    const handleBlur = (e) => {
-        const { name } = e.target;
-
-        setTouched((prev) => ({
-            ...prev,
-            [name]: true
-        }));
-    };
-
-    useEffect(() => {
-        const newErrors = {};
-
-        // Name
-        if (formData.name.trim() === "") {
-            newErrors.name = "Name is required";
-        } else if (formData.name.length < 3) {
-            newErrors.name = "Name must contain at least 3 characters";
-        }
-
-        // Email
-        const emailRegex =
-            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-        if (formData.email === "") {
-            newErrors.email = "Email is required";
-        } else if (!emailRegex.test(formData.email)) {
-            newErrors.email = "Enter a valid email address";
-        }
-
-        // Password
-        if (formData.password === "") {
-            newErrors.password = "Password is required";
-        } else if (formData.password.length < 8) {
-            newErrors.password = "Password must contain at least 8 characters";
-        } else if (!/[A-Z]/.test(formData.password)) {
-            newErrors.password = "Password must contain a capital letter";
-        } else if (!/[a-z]/.test(formData.password)) {
-            newErrors.password = "Password must contain a small letter";
-        } else if (!/[0-9]/.test(formData.password)) {
-            newErrors.password = "Password must contain a number";
-        } else if (!/[!@#$%^&*]/.test(formData.password)) {
-            newErrors.password = "Password must contain a special character";
-        }
-
-        // Confirm password
-        if (formData.confirmPassword === "") {
-            newErrors.confirmPassword = "Please confirm your password";
-        } else if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = "Passwords do not match";
-        }
-
-        setErrors(newErrors);
-    }, [formData]);
-
-    const isFormValid =
-        formData.name &&
-        formData.email &&
-        formData.password &&
-        formData.confirmPassword &&
-        Object.keys(errors).length === 0;
-
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        setTouched({
-            name: true,
-            email: true,
-            password: true,
-            confirmPassword: true
-        });
-
-        if (isFormValid) {
-            alert("Registration successful!");
+        if (name === "") {
+            alert("Please enter your name");
+            return;
         }
+        if (aadharName === "") {
+            alert("Please enter Aadhaar name");
+            return;
+        }
+        if (name.toLowerCase() !== aadharName.toLowerCase()) {
+            alert("Name and Aadhaar Name must be the same");
+            return;
+        }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email");
+            return;
+        }
+        if (!/^\d{10}$/.test(phone)) {
+            alert("Phone number must contain exactly 10 digits");
+            return;
+        }
+        if (dob === "") {
+            alert("Please select Date of Birth");
+            return;
+        }
+        if (gender === "") {
+            alert("Please select Gender");
+            return;
+        }
+        if (course === "") {
+            alert("Please select Course");
+            return;
+        }
+        if (!/^\d{6}$/.test(pincode)) {
+            alert("Pincode must contain exactly 6 digits");
+            return;
+        }
+        if (password === "") {
+            alert("Please enter password");
+            return;
+        }
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        if (permanentAddress === "") {
+            alert("Please enter permanent address");
+            return;
+        }
+        if (currentAddress === "") {
+            alert("Please enter current address");
+            return;
+        }
+        if (!file) {
+            alert("Please upload a file");
+            return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+            alert("File size must be less than 2 MB");
+            return;
+        }
+        setMessage("Form submitted successfully!");
     };
-
+    const handleClear = () => {
+        setName("");
+        setAadharName("");
+        setEmail("");
+        setPhone("");
+        setDob("");
+        setGender("");
+        setCourse("");
+        setPincode("");
+        setPassword("");
+        setConfirmPassword("");
+        setPermanentAddress("");
+        setCurrentAddress("");
+        setSameAddress(false);
+        setFile(null);
+        setMessage("");
+    };
     return (
-        <div className="page">
-            <form className="registration-form" onSubmit={handleSubmit}>
+        <div className="container">
+            <h1>Registration Form</h1>
+            <form onSubmit={handleSubmit}>
+                <label>Name</label>
+                <input type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your name" />
+                <label>Aadhaar Name</label>
+                <input type="text"
+                    value={aadharName}
+                    onChange={(e) => setAadharName(e.target.value)}
+                    placeholder="Enter name as in Aadhaar" />
+                <label>Email</label>
+                <input type="text"
+                    value={email} onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email" />
+                <label>Phone Number</label>
+                <input type="text"
+                    value={phone}
+                    maxLength="10"
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Enter 10 digit phone number" />
+                <label>Date of Birth</label>
+                <input type="date"
+                    value={dob}
+                    onChange={(e) => setDob(e.target.value)} />
+                <label>Gender</label>
+                <select value={gender}
+                    onChange={(e) => setGender(e.target.value)} >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label>Course</label>
+                <select value={course}
+                    onChange={(e) => setCourse(e.target.value)} >
+                    <option value="">Select Course</option>
+                    <option value="CSE">Computer Science Engineering</option>
+                    <option value="ECE">Electronics and Communication</option>
+                    <option value="EEE">Electrical and Electronics</option>
+                    <option value="IT">Information Technology</option>
+                </select>
+                <label>Pincode</label>
+                <input type="text"
+                    value={pincode}
 
-                <h1>Create Account</h1>
-                <p className="subtitle">Register your account</p>
-
-                {/* NAME */}
-                <div className="input-group">
-                    <label>Name</label>
-
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Enter your name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={
-                            touched.name
-                                ? errors.name
-                                    ? "invalid"
-                                    : "valid"
-                                : ""
-                        }
-                    />
-
-                    {touched.name && errors.name && (
-                        <span className="error">
-                            {errors.name}
-                        </span>
-                    )}
+                    maxLength="6"
+                    onChange={(e) => setPincode(e.target.value)}
+                    placeholder="Enter 6 digit pincode" />
+                <label>New Password</label>
+                <input type="password"
+                    value={password} onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password" />
+                <label>Confirm Password</label>
+                <input type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm password" />
+                <label>Permanent Address</label>
+                <textarea value={permanentAddress}
+                    onChange={(e) => setPermanentAddress(e.target.value)}
+                    placeholder="Enter permanent address" />
+                <label className="checkbox">
+                    <input type="checkbox"
+                        checked={sameAddress}
+                        onChange={handleSameAddress} /> Same as Permanent Address </label>
+                <label>Current Address</label>
+                <textarea value={currentAddress}
+                    onChange={(e) => setCurrentAddress(e.target.value)}
+                    placeholder="Enter current address" />
+                <label>Upload File</label>
+                <input type="file"
+                    onChange={(e) => setFile(e.target.files[0])} />
+                <p>Maximum file size: 2 MB</p>
+                <div className="buttons">
+                    <button type="submit">Submit</button>
+                    <button type="button"
+                        onClick={handleClear}> Clear </button>
                 </div>
-
-                {/* EMAIL */}
-                <div className="input-group">
-                    <label>Email</label>
-
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={
-                            touched.email
-                                ? errors.email
-                                    ? "invalid"
-                                    : "valid"
-                                : ""
-                        }
-                    />
-
-                    {touched.email && errors.email && (
-                        <span className="error">
-                            {errors.email}
-                        </span>
-                    )}
-                </div>
-
-                {/* PASSWORD */}
-                <div className="input-group">
-                    <label>Password</label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Create a password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={
-                            touched.password
-                                ? errors.password
-                                    ? "invalid"
-                                    : "valid"
-                                : ""
-                        }
-                    />
-
-                    {touched.password && errors.password && (
-                        <span className="error">
-                            {errors.password}
-                        </span>
-                    )}
-                </div>
-
-                {/* PASSWORD REQUIREMENTS */}
-                <div className="password-rules">
-
-                    <p>Password requirements</p>
-
-                    <div className={
-                        formData.password.length >= 8
-                            ? "rule success"
-                            : "rule"
-                    }>
-                        <span>
-                            {formData.password.length >= 8 ? "✓" : "○"}
-                        </span>
-                        At least 8 characters
-                    </div>
-
-                    <div className={
-                        /[A-Z]/.test(formData.password)
-                            ? "rule success"
-                            : "rule"
-                    }>
-                        <span>
-                            {/[A-Z]/.test(formData.password) ? "✓" : "○"}
-                        </span>
-                        One uppercase letter
-                    </div>
-
-                    <div className={
-                        /[a-z]/.test(formData.password)
-                            ? "rule success"
-                            : "rule"
-                    }>
-                        <span>
-                            {/[a-z]/.test(formData.password) ? "✓" : "○"}
-                        </span>
-                        One lowercase letter
-                    </div>
-
-                    <div className={
-                        /[0-9]/.test(formData.password)
-                            ? "rule success"
-                            : "rule"
-                    }>
-                        <span>
-                            {/[0-9]/.test(formData.password) ? "✓" : "○"}
-                        </span>
-                        One number
-                    </div>
-
-                    <div className={
-                        /[!@#$%^&*]/.test(formData.password)
-                            ? "rule success"
-                            : "rule"
-                    }>
-                        <span>
-                            {/[!@#$%^&*]/.test(formData.password) ? "✓" : "○"}
-                        </span>
-                        One special character
-                    </div>
-
-                </div>
-
-                {/* CONFIRM PASSWORD */}
-                <div className="input-group">
-                    <label>Confirm Password</label>
-
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm your password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={
-                            touched.confirmPassword
-                                ? errors.confirmPassword
-                                    ? "invalid"
-                                    : "valid"
-                                : ""
-                        }
-                    />
-
-                    {touched.confirmPassword &&
-                        errors.confirmPassword && (
-                            <span className="error">
-                                {errors.confirmPassword}
-                            </span>
-                        )}
-                </div>
-
-                <button type="submit" disabled={!isFormValid}>
-                    Create Account
-                </button>
-
+                {message && <h3 className="success">{message}</h3>}
             </form>
         </div>
     );
-}
-
-export default FormValidation;
+} export default FormValidation;
