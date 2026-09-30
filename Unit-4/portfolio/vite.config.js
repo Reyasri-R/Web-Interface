@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/Web-Interface/Unit-4/portfolio/',
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] })

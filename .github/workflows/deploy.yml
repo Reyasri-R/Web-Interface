@@ -1,0 +1,83 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install and build all React projects
+        run: |
+          for project in \
+            Unit-2/Project_1 \
+            Unit-2/project2 \
+            Unit-3/unit-3_project \
+            Unit-3/unit-3_project-2 \
+            Unit-4/form-validation \
+            Unit-4/portfolio \
+            Unit-5/report-card \
+            Unit-5/to-do_App
+          do
+            echo "Building $project"
+            (cd "$project" && npm ci && npm run build)
+          done
+
+      - name: Assemble Pages artifact
+        run: |
+          mkdir -p deploy/Unit-1 deploy/Unit-2/Project_1 deploy/Unit-2/project2
+          mkdir -p deploy/Unit-3/unit-3_project deploy/Unit-3/unit-3_project-2
+          mkdir -p deploy/Unit-4/form-validation deploy/Unit-4/portfolio
+          mkdir -p deploy/Unit-5/report-card deploy/Unit-5/to-do_App
+          cp index.html style.css deploy/
+          cp -R Unit-1/. deploy/Unit-1/
+          cp Unit-2/index.html deploy/Unit-2/
+          cp Unit-3/index.html deploy/Unit-3/
+          cp Unit-4/index.html deploy/Unit-4/
+          cp Unit-5/index.html deploy/Unit-5/
+          cp -R Unit-2/Project_1/dist/. deploy/Unit-2/Project_1/
+          cp -R Unit-2/project2/dist/. deploy/Unit-2/project2/
+          cp -R Unit-3/unit-3_project/dist/. deploy/Unit-3/unit-3_project/
+          cp -R Unit-3/unit-3_project-2/dist/. deploy/Unit-3/unit-3_project-2/
+          cp -R Unit-4/form-validation/dist/. deploy/Unit-4/form-validation/
+          cp -R Unit-4/portfolio/dist/. deploy/Unit-4/portfolio/
+          cp -R Unit-5/report-card/dist/. deploy/Unit-5/report-card/
+          cp -R Unit-5/to-do_App/dist/. deploy/Unit-5/to-do_App/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: deploy
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
