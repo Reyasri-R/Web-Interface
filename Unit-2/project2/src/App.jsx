@@ -1,5 +1,5 @@
 import books from "./assets/books.jpeg";
-import batminton from "./assets/badminton.jpeg";
+import batminton from "./assets/Badminton.jpeg";
 import music from "./assets/music.jpeg";
 import photo from "./assets/photos.jpeg";
 import football from "./assets/Football.jpeg";
